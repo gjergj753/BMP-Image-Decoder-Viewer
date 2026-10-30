@@ -312,47 +312,6 @@ int write_bmp(const char *filename, const bmp_image *bmp_image) {
 
     return EXIT_SUCCESS;
 
-    // SDL_Window *window;
-    // SDL_Renderer *renderer;
-    // SDL_Texture *texture;
-    // SDL_Event event;
-    //
-    // SDL_Init(SDL_INIT_VIDEO);
-    //
-    // window = SDL_CreateWindow("Image Processor", bmp_image->info_header->width, bmp_image->info_header->height, 0);
-    //
-    // renderer = SDL_CreateRenderer(window, NULL);
-    //
-    // texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_XBGR8888, SDL_TEXTUREACCESS_STREAMING, bmp_image->info_header->width, bmp_image->info_header->height);
-    //
-    // uint8_t is_running = 1;
-    // while (is_running)
-    // {
-    //
-    //     /*Poll the events*/
-    //     while (SDL_PollEvent(&event))
-    //     {
-    //         if (event.type == SDL_EVENT_QUIT)
-    //         {
-    //             // TODO: stop running
-    //             is_running = 0;
-    //         }
-    //     }
-    //
-    //     SDL_UpdateTexture(texture, NULL, bmp_image->bitmap_pixels, bmp_image->info_header->width * sizeof(uint32_t));
-    //
-    //     /* Display the window and the renderer*/
-    //     // SDL_RenderClear(renderer);
-    //     SDL_RenderTexture(renderer, texture, NULL, NULL);
-    //     SDL_RenderPresent(renderer);
-    // }
-    //
-    // SDL_DestroyTexture(texture);
-    // SDL_DestroyRenderer(renderer);
-    // SDL_DestroyWindow(window);
-    // SDL_Quit();
-    //
-    // return EXIT_SUCCESS;
 
 }
 
