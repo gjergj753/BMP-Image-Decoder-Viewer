@@ -84,86 +84,82 @@ bmp_image* read_bmp(const char *filename) {
         - Build the compatibility with other color levels (bits per pixel), like 16 bit, 8 bit, etc.
         */
 
-    if (info_header->bits_per_pixel == 8)
-    {
-        for (uint32_t row = 0; row < info_header->height; row++)
-        {
-            for (uint32_t col = 0; col < info_header->width; col++)
+    switch (info_header->bits_per_pixel) {
+        case 8:
+            for (uint32_t row = 0; row < info_header->height; row++)
             {
-                // Find this pixel inside the BMP pixel buffer
-                const unsigned char *pixel = pixels + row * row_size + col * bytes_per_pixel;
+                for (uint32_t col = 0; col < info_header->width; col++)
+                {
+                    // Find this pixel inside the BMP pixel buffer
+                    const unsigned char *pixel = pixels + row * row_size + col * bytes_per_pixel;
 
-                // BMP stores 24-bit pixels as B G R
-                const uint32_t blue  = pixel[0];
-                const uint32_t green = pixel[0];
-                const uint32_t red   = pixel[0];
+                    // BMP stores 24-bit pixels as B G R
+                    const uint32_t blue  = pixel[0];
+                    const uint32_t green = pixel[0];
+                    const uint32_t red   = pixel[0];
 
-                const uint32_t result = (blue << 16) | (green << 8) | red;
+                    const uint32_t result = (blue << 16) | (green << 8) | red;
 
-                // Standard BMP pixel rows are stored bottom-to-top
-                const uint32_t out_row = info_header->height - 1 - row;
+                    // Standard BMP pixel rows are stored bottom-to-top
+                    const uint32_t out_row = info_header->height - 1 - row;
 
-                const uint32_t out_index = out_row * info_header->width + col;
+                    const uint32_t out_index = out_row * info_header->width + col;
 
-                bitmap_pixels[out_index] = result;
+                    bitmap_pixels[out_index] = result;
+                }
             }
-        }
-    }
-
-    if (info_header->bits_per_pixel == 16)
-    {
-    }
-
-    if (info_header->bits_per_pixel == 24)
-    {
-        for (uint32_t row = 0; row < info_header->height; row++)
-        {
-            for (uint32_t col = 0; col < info_header->width; col++)
+            break;
+        case 16:
+            break;
+        case 24:
+            for (uint32_t row = 0; row < info_header->height; row++)
             {
-                // Find this pixel inside the BMP pixel buffer
-                const unsigned char *pixel = pixels + row * row_size + col * bytes_per_pixel;
+                for (uint32_t col = 0; col < info_header->width; col++)
+                {
+                    // Find this pixel inside the BMP pixel buffer
+                    const unsigned char *pixel = pixels + row * row_size + col * bytes_per_pixel;
 
-                // BMP stores 24-bit pixels as B G R
-                const uint32_t blue  = pixel[0];
-                const uint32_t green = pixel[1];
-                const uint32_t red   = pixel[2];
+                    // BMP stores 24-bit pixels as B G R
+                    const uint32_t blue  = pixel[0];
+                    const uint32_t green = pixel[1];
+                    const uint32_t red   = pixel[2];
 
-                const uint32_t result = (blue << 16) | (green << 8) | red;
+                    const uint32_t result = (blue << 16) | (green << 8) | red;
 
-                // Standard BMP pixel rows are stored bottom-to-top
-                const uint32_t out_row = info_header->height - 1 - row;
+                    // Standard BMP pixel rows are stored bottom-to-top
+                    const uint32_t out_row = info_header->height - 1 - row;
 
-                const uint32_t out_index = out_row * info_header->width + col;
+                    const uint32_t out_index = out_row * info_header->width + col;
 
-                bitmap_pixels[out_index] = result;
+                    bitmap_pixels[out_index] = result;
+                }
             }
-        }
-    }
-
-    if (info_header->bits_per_pixel == 32)
-    {
-        for (uint32_t row = 0; row < info_header->height; row++)
-        {
-            for (uint32_t col = 0; col < info_header->width; col++)
+            break;
+        case 32:
+            for (uint32_t row = 0; row < info_header->height; row++)
             {
-                // Find this pixel inside the BMP pixel buffer
-                const unsigned char *pixel = pixels + row * row_size + col * bytes_per_pixel;
+                for (uint32_t col = 0; col < info_header->width; col++)
+                {
+                    // Find this pixel inside the BMP pixel buffer
+                    const unsigned char *pixel = pixels + row * row_size + col * bytes_per_pixel;
 
-                // BMP stores 24-bit pixels as B G R
-                const uint32_t blue  = pixel[0];
-                const uint32_t green = pixel[1];
-                const uint32_t red   = pixel[2];
+                    // BMP stores 24-bit pixels as B G R
+                    const uint32_t blue  = pixel[0];
+                    const uint32_t green = pixel[1];
+                    const uint32_t red   = pixel[2];
 
-                const uint32_t result = (blue << 16) | (green << 8) | red;
+                    const uint32_t result = (blue << 16) | (green << 8) | red;
 
-                // Standard BMP pixel rows are stored bottom-to-top
-                const uint32_t out_row = info_header->height - 1 - row;
+                    // Standard BMP pixel rows are stored bottom-to-top
+                    const uint32_t out_row = info_header->height - 1 - row;
 
-                const uint32_t out_index = out_row * info_header->width + col;
+                    const uint32_t out_index = out_row * info_header->width + col;
 
-                bitmap_pixels[out_index] = result;
+                    bitmap_pixels[out_index] = result;
+                }
             }
-        }
+            break;
+        default: ;
     }
 
     bmp_image *image = malloc(sizeof(bmp_image));
